@@ -1,3 +1,6 @@
-# ignore all json files
+# ignore these folders
+__pycache__/
+# ignore these file types
 *.json
 *.db
+*.pyc
