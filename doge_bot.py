@@ -1,19 +1,29 @@
+import json
+
 from irc.bot import SingleServerIRCBot
 from requests import get
 
 from lib import db, cmds, react, automod
 
+
 NAME = "dogebot"
 OWNER = "plasmodium_"
+filename = "tokens.json"
+tokens = []
 
+try:
+    with open(filename) as f:
+        tokens = json.load(f)
+except FileNotFoundError:
+    pass
 
 class Bot(SingleServerIRCBot):
     def __init__(self):
         self.HOST = "irc.chat.twitch.tv"
         self.PORT = 6667
         self.USERNAME = NAME.lower()
-        self.CLIENT_ID = "z8chhr1hydrd1nlxmoxbmulhj728b5"
-        self.TOKEN = "1gyiqdwoqqu1mgtkvavg0zzt34fu04"
+        self.CLIENT_ID = tokens[0]
+        self.TOKEN = tokens[1]
         self.CHANNEL = f"#{OWNER}"
 
         url = f"https://api.twitch.tv/kraken/users?login={self.USERNAME}"
