@@ -27,22 +27,18 @@ def hello(bot, user, *args):
 def translate(bot, str, *args):
     """takes a string and translates it"""
     try:
-        # takes tuple and stores information as string
-        chat_tuple = _string_conversion(args)
-
-        # store languages into variables
-        input_language = chat_tuple.split(" ", 1)[0]
-        string_list = chat_tuple.split(" ", 1)[1:]
-        # exception for chinese, if chinese is typed in, default chinese (simplified)
-        if input_language.lower() == "chinese":
-            input_language = 'zh-cn'
-        # convert the original string from a list to a string
-        original_string = _string_conversion(string_list)
+        # stores args in a list
+        input_string = [arg for arg in args]
+        language = input_string[0]
+        original = ' '.join(input_string[1:])
+        # defaults the input of chinese to simp chinese
+        if language.lower() == "chinese":
+            language = "zh-cn"
         translator = Translator()
-        translated_str = translator.translate(f'{original_string}', dest=f'{input_language}')
-        bot.send_message(f"{translated_str.text}")
+        # translates input text
+        translated_string = translator.translate(f"{original}", dest=f"{language}")
+        bot.send_message(f"{translated_string.text}")
     except ValueError:
-        # if the user tries to translate to a language that doesn't exist
         bot.send_message("Please input a valid language")
 
 
