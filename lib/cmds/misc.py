@@ -42,12 +42,6 @@ def translate(bot, str, *args):
         bot.send_message("Please input a valid language")
 
 
-def _string_conversion(tup):
-    """helper function for translate, converts tuple to string"""
-    str = ' '.join(tup)
-    return str
-
-
 def yeet(bot, user, *args):
     """bans users if they say 'yeet'"""
     bot.send_message(f"{user['name']} has been yeet'ed for 10 seconds.")

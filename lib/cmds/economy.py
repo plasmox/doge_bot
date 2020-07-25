@@ -12,10 +12,9 @@ def coins(bot, user, *args):
 def give(bot, user, *args):
     """gives coins from user to another"""
     try:
-        chat_tuple = _string_conversion(args)
-        target = chat_tuple.split(" ", 1)[0]
-        amount = chat_tuple.split(" ", 1)[1:]
-        amount = int(amount[0])
+        input_string = [arg for arg in args]
+        target = input_string[0]
+        amount = int(input_string[1])
         coins = db.field("SELECT Coins FROM users WHERE UserID = ?", user["id"])
 
         if user['name'] == OWNER:
@@ -51,15 +50,3 @@ def scoreboard(bot, *args):
     for coins, user in sorted_scoreboard[:5]:
         bot.send_message(f"{count} - {user}: {coins}")
         count += 1
-
-
-def _string_conversion(tup):
-    """converts tuple to string"""
-    str = ' '.join(tup)
-    return str
-
-
-def Convert(tup, dictionary):
-    """converts tuple to dictionary"""
-    di = dict(tup)
-    return di
