@@ -39,13 +39,13 @@ def give(bot, user, *args):
 
 def scoreboard(bot, *args):
     """Prints user coin leaderboard to chat"""
-    user_list = db.get("SELECT Coins, UserName FROM users")
-    dict_1 = {}
-    scoreboard = Convert(user_list, dict_1)
-    sorted_scoreboard = sorted(scoreboard.items())
+    # stores usernames and coins in a dictionary
+    user_list = dict(db.get("SELECT Coins, UserName FROM users"))
+    # sort from large to small
+    sorted_scoreboard = sorted(user_list.items())
     sorted_scoreboard.sort(reverse=True)
     count = 1
-
+    # show top 5
     bot.send_message(f"Top 5 coins scoreboard:")
     for coins, user in sorted_scoreboard[:5]:
         bot.send_message(f"{count} - {user}: {coins}")
