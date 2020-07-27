@@ -3,12 +3,18 @@ from collections import defaultdict
 from . import db
 
 CURSES = ("boomer", "thot", "RDR2")
+FOLLOW_BOTS = ("wanna become famous?", "followingbot.com")
 warning_timers = (1, 5, 15)
 
 
 def clear(bot, user, message):
+    """General user curses"""
     if any([curse in message.lower() for curse in CURSES]):
         warn(bot, user, reason="Cursing")
+        return False
+    elif any([string in message.lower() for string in FOLLOW_BOTS]):
+        bot.send_message(f"/ban {user['name']}")
+        bot.send_message(f"{user['name']} has been banned for being a follow bot.")
         return False
 
     return True
