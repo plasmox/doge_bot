@@ -46,13 +46,14 @@ def process(bot, user, message):
 
 
 def add_user(bot, user):
-    db.execute("INSERT OR IGNORE INTO users (UserID, UserName) VALUES (?, ?)",
-               user["id"], user["name"].lower())
+    """Adds first time users to the DB"""
+    db.execute("INSERT OR IGNORE INTO users (UserID, UserName, Type) VALUES (?, ?, ?)",
+               user["id"], user["name"].lower(), user["type"])
 
 
 def update_records(bot, user):
-    db.execute("UPDATE users SET UserName = ?, MessagesSent = MessagesSent + 1 WHERE UserID = ?",
-               user["name"].lower(), user["id"])
+    db.execute("UPDATE users SET UserName = ?, MessagesSent = MessagesSent + 1, Type = ? WHERE UserID = ?",
+               user["name"].lower(), user["type"], user["id"])
 
     stamp = db.field("SELECT CoinLock FROM users WHERE UserID = ?",
                      user["id"])

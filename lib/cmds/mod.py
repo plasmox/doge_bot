@@ -1,7 +1,6 @@
 from .. import db
 
 OWNER = "plasmodium_"
-TEMP_MOD = []
 
 # warnings
 warning_timers = (1, 5, 60)
@@ -46,27 +45,28 @@ def remove_warn(bot, user, target=None, *args):
 def buy_timeout(bot, user, target=None, *time):
     """user bought timeout, removes coins, and times out for specific time"""
     try:
-        # converts *time to int
-        time = ' '.join(*time)
-        # stores current user's coin to check if they have enough
-        coins = db.field("SELECT Coins FROM users WHERE UserID = ?", user["id"])
-        cost = 150
-
-        #checks if the user has enough coins
-        if coins < cost:
-            bot.send_message(f"This command costs {cost} coins. {user['name']}, has only {coins:,} coins.")
+        status = db.field("SELECT Type FROM users WHERE UserID = ?", user["id"])
+        if status == 1 or target == OWNER:
+            bot.send_message("This target cannot be timed out.")
         else:
-            if target is None:
-                bot.send_message("You must specify a target.")
+            # converts *time to int
+            time = ' '.join(*time)
+            # stores current user's coin to check if they have enough
+            coins = db.field("SELECT Coins FROM users WHERE UserID = ?", user["id"])
+            cost = 1
+
+            #checks if the user has enough coins
+            if coins < cost:
+                bot.send_message(f"This command costs {cost} coins. {user['name']}, has only {coins:,} coins.")
             else:
-                db.execute("UPDATE users SET Coins = Coins - ? WHERE UserID = ?",
-                    cost, user['id'])
-                bot.send_message(f"/timeout {target} {time}s")
-                bot.send_message(f"{target}, has been muted for {time}s by {user['name']}.")
+                if target is None:
+                    bot.send_message("You must specify a target.")
+                else:
+                    db.execute("UPDATE users SET Coins = Coins - ? WHERE UserID = ?",
+                        cost, user['id'])
+                    bot.send_message(f"/timeout {target} {time}s")
+                    bot.send_message(f"{target}, has been muted for {time}s by {user['name']}.")
     except TypeError:
         bot.send_message("Please input a user and a time, i.e. !timeout [user] [time]s")
 
-def _string_conversion(tup):
-    """helper function for translate, converts tuple to string"""
-    str = ' '.join(tup)
-    return str
+

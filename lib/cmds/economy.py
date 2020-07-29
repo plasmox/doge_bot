@@ -22,17 +22,20 @@ def give(bot, user, *args):
                 amount, target)
             bot.send_message(f"{target} has been given {amount} coins.")
         else:
-            # check if user has coins to give
-            if coins < amount:
-                bot.send_message(f"{user['name']}, you only have {coins:,} coins to give.")
+            if user['name'] == target:
+                bot.send_message("you must give coins to another user.")
             else:
-                # removes coins from user to give
-                db.execute("UPDATE users SET Coins = Coins - ? WHERE UserID = ?",
-                           amount, user["id"])
-                # gives to other user
-                db.execute("UPDATE users SET Coins = Coins + ? WHERE UserName = ?",
-                           amount, target)
-                bot.send_message(f"{user['name']} has given {coins:,} coins to {target}.")
+                # check if user has coins to give
+                if coins < amount:
+                    bot.send_message(f"{user['name']}, you only have {coins:,} coins to give.")
+                else:
+                    # removes coins from user to give
+                    db.execute("UPDATE users SET Coins = Coins - ? WHERE UserID = ?",
+                               amount, user["id"])
+                    # gives to other user
+                    db.execute("UPDATE users SET Coins = Coins + ? WHERE UserName = ?",
+                               amount, target)
+                    bot.send_message(f"{user['name']} has given {coins:,} coins to {target}.")
     except:
         bot.send_message("Please enter a user and amount, i.e. !give [user] [amount]")
 

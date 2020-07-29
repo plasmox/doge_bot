@@ -49,12 +49,8 @@ class Bot(SingleServerIRCBot):
         parses chat input and reads for commands
         """
         tags = {kvpair["key"]: kvpair["value"] for kvpair in event.tags}
-        user = {"name": tags["display-name"], "id": tags["user-id"]}
+        user = {"name": tags["display-name"], "id": tags["user-id"], "type": tags["mod"]}
         message = event.arguments[0]
-
-        # print(f"tag info:\n{tags}\n")
-        # print(f"user info:\n{user}\n")
-        # print(f"message:\n{message}\n")
 
 
         react.add_user(bot, user)
