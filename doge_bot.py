@@ -52,6 +52,11 @@ class Bot(SingleServerIRCBot):
         user = {"name": tags["display-name"], "id": tags["user-id"]}
         message = event.arguments[0]
 
+        # print(f"tag info:\n{tags}\n")
+        # print(f"user info:\n{user}\n")
+        # print(f"message:\n{message}\n")
+
+
         react.add_user(bot, user)
 
         if user["name"] != NAME and automod.clear(bot, user, message):

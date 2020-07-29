@@ -35,7 +35,7 @@ cmds = [
     Cmd(["unwarn", "rmwarn"], mod.remove_warn),
 ]
 
-nightbot_cmds = ['8ball', 'bestmod', 'broken', 'bru', 'clang', 'dannytime' 'discord',
+nightbot_cmds = ['8ball', 'bestmod', 'broken', 'bru', 'clang', 'dannytime', 'discord',
                  'eerie', 'factorio', 'falic', 'followage', 'gitgud', 'hug', 'ihatemylife',
                  'kiss', 'lurk', 'mistake', 'mjr', 'mods', 'moshimoshi', 'null', 'oc', 'oof',
                  'party', 'party2', 'pawel', 'pawelgoat', 'pizzaparty', 'plastechnique',
