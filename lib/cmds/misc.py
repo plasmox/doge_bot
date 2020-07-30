@@ -38,7 +38,7 @@ def translate(bot, str, *args):
         # translates input text
         translated_string = translator.translate(f"{original}", dest=f"{language}")
         bot.send_message(f"{translated_string.text}")
-    except ValueError:
+    except:
         bot.send_message("Please input a valid language")
 
 

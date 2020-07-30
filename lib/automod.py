@@ -3,7 +3,7 @@ from collections import defaultdict
 from . import db
 
 CURSES = ("boomer", "thot", "RDR2")
-FOLLOW_BOTS = ("wanna become famous?", "followingbot.com")
+FOLLOW_BOTS = ("wanna become famous?", "followingbot.com", "bigfollows . com", "Buy followers, primes and views")
 warning_timers = (1, 5, 15)
 
 
