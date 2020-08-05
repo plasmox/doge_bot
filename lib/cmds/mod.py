@@ -53,7 +53,7 @@ def buy_timeout(bot, user, target=None, *time):
             time = ' '.join(*time)
             # stores current user's coin to check if they have enough
             coins = db.field("SELECT Coins FROM users WHERE UserID = ?", user["id"])
-            cost = 1
+            cost = 150
 
             #checks if the user has enough coins
             if coins < cost:
